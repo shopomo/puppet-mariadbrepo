@@ -84,7 +84,14 @@ class mariadbrepo (
           'id'     => '199369E5404BD5FC7D2FE43BCBCB082A1BB943DB',
           'server' => 'keyserver.ubuntu.com',
         },
+        notify   => Exec['apt_update_mariadb']
       }
+
+      exec { 'apt_update_mariadb':
+        command => 'apt-get update',
+        path    => $::path
+      }
+
     }
     default: {
       fail ("This module does not support your operating system : ${::operatingsystem}")
